@@ -15,7 +15,7 @@ function wp_recruitment_enqueue_styles()
     ));
 }
 
-add_action('wp_enqueue_scripts', 'wp_recruitment_enqueue_styles');
+add_action('wp_enqueue_scripts', 'wp_recruitment_enqueue_styles', 99);
 
 /**
  * Load vc template dir.
@@ -23,6 +23,6 @@ add_action('wp_enqueue_scripts', 'wp_recruitment_enqueue_styles');
  * @author CMSSuperHeroes
  * @since 1.1.1
  */
-if (function_exists("vc_set_shortcodes_templates_dir")) {
-    vc_set_shortcodes_templates_dir(get_stylesheet_directory() . "/vc_templates/");
+if (function_exists('vc_set_shortcodes_templates_dir') && is_dir(get_stylesheet_directory() . '/vc_templates/')) {
+    vc_set_shortcodes_templates_dir(get_stylesheet_directory() . '/vc_templates/');
 }
