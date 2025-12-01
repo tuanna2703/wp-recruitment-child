@@ -26,3 +26,16 @@ add_action('wp_enqueue_scripts', 'wp_recruitment_enqueue_styles', 99);
 if (function_exists('vc_set_shortcodes_templates_dir') && is_dir(get_stylesheet_directory() . '/vc_templates/')) {
     vc_set_shortcodes_templates_dir(get_stylesheet_directory() . '/vc_templates/');
 }
+
+add_action('after_switch_theme', 'wp_recruitment_child_redirect_to_welcome_page');
+function wp_recruitment_child_redirect_to_welcome_page()
+{
+	if (is_child_theme()) {
+		$parent_theme = wp_get_theme()->parent();
+		if (class_exists('CMS_PORTAL')) {
+			wp_safe_redirect(admin_url("themes.php?page={$parent_theme->get('TextDomain')}"));
+		} else {
+			wp_safe_redirect(admin_url("themes.php?page={$parent_theme->get('TextDomain')}-welcome"));
+		}
+	}
+}
